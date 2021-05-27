@@ -165,19 +165,23 @@ ul {
       background: linear-gradient(270deg, #4BC553 11.26%, #70E25C 100%);
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
       border-radius: 87.5px 0 0 87.5px;
-      left: 0;
       top: 2px;
       padding: 40px 37px;
       display: flex;
       justify-content: start;
       align-items: center;
+      transition: all 0.6s ease;
+
+      &[data-pos="1"] {
+        left: 0;
+      }
 
       &[data-pos="2"] {
-        transform: translateX(426px);
+        left: 426px;
       }
 
       &[data-pos="3"] {
-        transform: translateX(538px);
+        left: 538px;
       }
 
       &__logo {
@@ -185,14 +189,16 @@ ul {
       }
 
       &__content {
-        transition: transform 0.5s ease;
+        transition: opacity 0.5s ease;
         display: flex;
         flex-direction: column;
         align-items: left;
         text-align: center;
         max-width: 210px;
         width: 100%;
-        transform: translateX(1000%);
+        &.hidden {
+          opacity: 0;
+        }
       }
 
       &__number {
@@ -215,10 +221,6 @@ ul {
       }
     }
   }
-}
-
-.intro__slider-item.active>.intro__slider-item__content {
-  transform: translateX(0);
 }
 
 .about {
