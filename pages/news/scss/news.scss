@@ -63,16 +63,18 @@ ul {
     max-width: 336px;
     width: 100%;
     margin: 0 auto 13px;
+    min-height: 31px;
   }
 
   &__years-item {
-    transition: all 0.2s ease;
 
     a {
       font-size: 16px;
       line-height: 20px;
       font-weight: 700;
       color: #fff;
+      
+    transition: all 0.2s ease;
     }
 
     &.selected {
@@ -110,9 +112,16 @@ ul {
 
   &__list {
     margin-bottom: 75px;
+    min-height: 327px;
+    position: relative;
+    overflow: hidden;
   }
 
   &__item {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     max-width: 1096px;
     height: 327px;
     width: 100%;
@@ -120,6 +129,25 @@ ul {
     justify-content: space-between;
     align-items: flex-start;
     margin: 0 auto;
+    transition: transform 0.6s ease;
+    &[data-pos="-1"] {
+      transform: translate(-50%, -50%) translateX(-200%);
+    }
+    &[data-pos="-2"] {
+      transform: translate(-50%, -50%) translateX(-350%);
+    }
+    &[data-pos="-3"] {
+      transform: translate(-50%, -50%) translateX(-500%);
+    }
+    &[data-pos="1"] {
+      transform: translate(-50%, -50%) translateX(150%);
+    }
+    &[data-pos="2"] {
+      transform: translate(-50%, -50%) translateX(300%);
+    }
+    &[data-pos="3"] {
+      transform: translate(-50%, -50%) translateX(450%);
+    }
 
     &-image {
       min-width: 538px;
@@ -183,6 +211,7 @@ ul {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 100;
 
     &-left,
     &-right {
@@ -194,7 +223,9 @@ ul {
       transition: all 0.2s ease;
       border: none;
       position: relative;
-
+      &.disabled {
+        pointer-events: none;
+      }
       &:active {
         transform: translateY(5%);
       }
@@ -229,7 +260,8 @@ ul {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-
+      cursor: pointer;
+      transition: all 0.2s ease;
       a {
         display: block;
         width: 10px;
@@ -237,9 +269,11 @@ ul {
         background-color: $greenColor;
         opacity: 0.2;
         border-radius: 50%;
+        pointer-events: none;
       }
 
       &.active {
+        pointer-events: none;
         a {
           opacity: 1;
         }
@@ -355,7 +389,9 @@ ul {
         cursor: pointer;
         transition: all 0.2s ease;
         border: none;
-
+        &.disabled {
+          pointer-events: none;
+        }
         &:active {
           transform: translateY(5%);
         }
