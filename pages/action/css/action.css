@@ -57,7 +57,7 @@ ul {
 .intro__subtitle {
   max-width: 510px;
   width: 100%;
-  margin-bottom: 155px;
+  margin: 0 auto 155px;
 }
 .intro__text {
   text-align: left;

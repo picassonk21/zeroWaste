@@ -19,55 +19,60 @@ const sliderItems = document.querySelectorAll('.slider__item');
 sliderDots.forEach((item) => {
   item.addEventListener('click', () => {
     const position = [...sliderDots].indexOf(item) + 1;
+    const difference = position - activeSlide;
     if (position > activeSlide) {
-      slideRight();
+      slideRight(difference);
     } else if (position < activeSlide) {
-      slideLeft();
+      slideLeft(difference);
     }
   });
 });
 
 sliderControlsLeft.addEventListener('click', () => {
-  slideLeft();
-  console.log(activeSlide);
+  slideLeft(-1);
 });
 
 sliderControlsRight.addEventListener('click', () => {
-  slideRight();
-  console.log(activeSlide);
+  slideRight(1);
 });
 
-function slideLeft() {
-  activeSlide -= 1;
+function slideLeft(difference) {
+  activeSlide += difference;
   slideDots();
   if (activeSlide === 1) {
-    toggleLeftDisabled();
-  } else if (activeSlide === 3) {
-    toggleRightDisabled();
+    toggleLeftDisabled(true);
+    toggleRightDisabled(false);
+  } else {
+    toggleLeftDisabled(false);
+    toggleRightDisabled(false);
   }
-  moveSlide();
+  moveSlide(true, difference);
+  console.log(activeSlide);
 };
 
-function slideRight() {
-  activeSlide += 1;
+function slideRight(difference) {
+  activeSlide += difference;
   slideDots();
-  if (activeSlide === 2) {
-    toggleLeftDisabled();
-  } else if (activeSlide === 4) {
-    toggleRightDisabled();
+  if (activeSlide === 4) {
+    toggleLeftDisabled(false);
+    toggleRightDisabled(true);
+  } else {
+    toggleRightDisabled(false);
+    toggleLeftDisabled(false);
   }
-  moveSlide(false);
+  moveSlide(false, difference);
+  console.log(activeSlide);
 };
 
-function toggleRightDisabled() {
-  sliderControlsRight.classList.toggle('disabled');
+function toggleRightDisabled(isDisabled) {
+  sliderControlsRight.classList.toggle('disabled', isDisabled);
   sliderControlsRight.classList.contains('disabled')
     ? sliderControlsRightImage.src = '../../assets/arrow-right.svg'
     : sliderControlsRightImage.src = '../../assets/arrow-right-active.svg';
 };
 
-function toggleLeftDisabled() {
-  sliderControlsLeft.classList.toggle('disabled');
+function toggleLeftDisabled(isDisabled) {
+  sliderControlsLeft.classList.toggle('disabled', isDisabled);
   sliderControlsLeft.classList.contains('disabled')
     ? sliderControlsLeftImage.src = '../../assets/arrow-left.svg'
     : sliderControlsLeftImage.src = '../../assets/arrow-left-active.svg';
@@ -80,8 +85,7 @@ function slideDots() {
   sliderDots[activeSlide - 1].classList.add('active');
 };
 
-function moveSlide(isLeft = true) {
-  const difference = isLeft ? -1 : 1;
+function moveSlide(isLeft = true, difference) {
   sliderItems.forEach((item) => {
     const currentPos = +item.getAttribute('data-pos');
     const newPos = currentPos + difference;
