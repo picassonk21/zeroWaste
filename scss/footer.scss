@@ -12,6 +12,7 @@ $yellowColor: #FFC700;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 auto;
   }
 
   &__logo {
@@ -72,7 +73,7 @@ $yellowColor: #FFC700;
         font-size: 12px;
         line-height: 15px;
         font-weight: 400;
-        color: #fff;
+        color: #fff;     
       }
     }
   }
